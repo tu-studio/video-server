@@ -22,9 +22,14 @@ def resume(_):
     print("resume")
     mpv({"command": ["set_property", "pause", False]})
 
+def stop(_):
+    print("stop")
+    mpv({"command": ["stop"]})
+
 disp = dispatcher.Dispatcher()
 disp.map("/load", load)
 disp.map("/pause", pause)
 disp.map("/resume", resume)
+disp.map("/stop", stop)
 server = osc_server.ThreadingOSCUDPServer((IP, PORT), disp)
 server.serve_forever()
