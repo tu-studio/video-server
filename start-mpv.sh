@@ -15,9 +15,9 @@ fi
 
 # echo "Using connector: $CONNECTED"
 
-
 SOCKET=/tmp/mpvsocket
-mpv --no-terminal \
+mpv \ 
+    --terminal=no \
     --vo=drm \
     --drm-device=/dev/dri/card1 \
     --drm-connector="$CONNECTED" \
