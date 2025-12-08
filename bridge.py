@@ -10,6 +10,15 @@ def mpv(cmd):
         s.connect(SOCK)
         s.sendall((json.dumps(cmd) + "\n").encode())
 
+def fallback(address, *args):
+    print("fallback:", address, args)
+    if address[0] == "/":
+        address = address[1:]
+    command = [ a for a in args ]
+    command.insert(0, address)
+
+    mpv({"command": command})
+
 def load(_, path):
     print(f"load {path}")
     mpv({"command": ["loadfile", path, "replace"]})
@@ -27,6 +36,7 @@ def stop(_):
     mpv({"command": ["stop"]})
 
 disp = dispatcher.Dispatcher()
+disp.set_default_handler(fallback)
 disp.map("/load", load)
 disp.map("/pause", pause)
 disp.map("/resume", resume)
