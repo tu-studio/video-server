@@ -15,5 +15,12 @@ fi
 
 # echo "Using connector: $CONNECTED"
 
-# Launch mpv on that connector
-mpv --no-terminal --vo=drm --drm-device=/dev/dri/card1 --drm-connector="$CONNECTED" "$@"
+
+SOCKET=/tmp/mpvsocket
+mpv --no-terminal \
+    --vo=drm \
+    --drm-device=/dev/dri/card1 \
+    --drm-connector="$CONNECTED" \
+    --input-ipc-server=$SOCKET \
+    --idle=yes
+    "$@"
