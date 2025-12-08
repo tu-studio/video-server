@@ -1,6 +1,8 @@
 from pythonosc import dispatcher, osc_server
 import socket, json
 
+# TODO: move to config file
+BLANK_PATH="media/blank.mp4"
 SOCK = "/tmp/mpvsocket"
 PORT = 9000
 IP = "0.0.0.0"
@@ -35,11 +37,17 @@ def stop(_):
     print("stop")
     mpv({"command": ["stop"]})
 
+def blank(_):
+    load("", BLANK_PATH)
+    pause("")
+
+
 disp = dispatcher.Dispatcher()
 disp.set_default_handler(fallback)
 disp.map("/load", load)
 disp.map("/pause", pause)
 disp.map("/resume", resume)
 disp.map("/stop", stop)
+disp.map("/blank", blank)
 server = osc_server.ThreadingOSCUDPServer((IP, PORT), disp)
 server.serve_forever()
