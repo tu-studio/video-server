@@ -9,7 +9,7 @@ WantedBy=default.target
 
 [Service]
 Type=exec
-ExecStart=/usr/bin/udp-bridge.py
+ExecStart=/usr/local/bin/udp-bridge.py
 RestartMode=always
 ; Environment="UDP_BRIDGE_MPV_SOCKET=/tmp/mpvsocket"
 ; Environment="UDP_BRIDGE_BLANK_PATH=media/blank.mp4"
