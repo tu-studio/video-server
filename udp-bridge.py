@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 import socket
 import json
+from os import environ as env
 
-# TODO: move to config file
-BLANK_PATH = "media/blank.mp4"
-SOCK = "/tmp/mpvsocket"
-UDP_IP = "0.0.0.0"
-UDP_PORT = 9000
-BUFFER_SIZE = 4096
+# read from environment variables
+# TODO: actually parse and recover from possible errors??? maybe
+
+SOCK = env.get("UDP_BRIDGE_MPV_SOCKET", "/tmp/mpvsocket")
+BLANK_PATH = env.get("UDP_BRIDGE_BLANK_PATH", "media/blank.mp4")
+UDP_IP = env.get("UDP_BRIDGE_UDP_IP", "0.0.0.0")
+UDP_PORT = int(env.get("UDP_BRIDGE_UDP_PORT", 9000))
+BUFFER_SIZE = int(env.get("UDP_BRIDGE_BUFFER_SIZE", 4096))
 
 def mpv(cmd):
     try:

@@ -1,0 +1,10 @@
+[Unit]
+Description=Start mpv
+
+[Install]
+WantedBy=default.target
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/start-mpv.sh
+RestartMode=always

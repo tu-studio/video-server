@@ -3,14 +3,16 @@ import time
 
 # mockup simulating schedcontrol.py in showcontrol project
 
+IP = "130.149.23.119"
+
 def wrap_cmd(cmd, args={}):
     args["command"] = cmd
     return args
     # return {"command": cmd}
 
-def send_udp_broadcast(cmd, ip="192.168.2.2", port=9000, args={}):
-    cmd = wrap_cmd(cmd)
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # <-- UDP
+def send_udp_broadcast(cmd, ip=IP, port=9000, args={}):
+    cmd = wrap_cmd(cmd, args)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     msg = json.dumps(cmd).encode("utf-8")
     sock.sendto(msg, (ip, port))
     sock.close()
@@ -36,5 +38,4 @@ def play_video(index, start_paused=False):
 load("/home/pi/vid.mp4")
 # resume()
 # pause()
-play_video(2)
-
+# play_video(2)
