@@ -11,7 +11,7 @@ done | head -n1)
 # Fallback if nothing was found
 CONNECTED="${CONNECTED:-"HDMI-A-1"}"
 SOCKET="${SOCKET:-"/tmp/mpvsocket"}"
-PLAYLIST="${PLAYLIST:-"/home/pi/playlist.txt"}"
+PLAYLIST="${PLAYLIST:-"$USER/videos/playlist.txt"}"
 
 exec mpv \
     --input-ipc-server=$SOCKET \
