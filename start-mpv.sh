@@ -13,7 +13,7 @@ CONNECTED="${CONNECTED:-"HDMI-A-1"}"
 SOCKET="${SOCKET:-"/tmp/mpvsocket"}"
 PLAYLIST="${PLAYLIST:-"/home/pi/playlist.txt"}"
 
-exec mpv $PLAYLIST
+exec mpv \
     --input-ipc-server=$SOCKET \
 
     # from mpv.conf
@@ -24,7 +24,7 @@ exec mpv $PLAYLIST
     --video-output-levels=limited \
     --audio-channels=stereo \
     --volume=80 \
-    --playlist=$PLAYLIST
+    --playlist=$PLAYLIST \
 
     # not sure if needed
     --terminal=no \
