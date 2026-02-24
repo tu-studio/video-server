@@ -9,18 +9,29 @@ CONNECTED=$(for c in /sys/class/drm/card1-*; do
 done | head -n1)
 
 # Fallback if nothing was found
-if [ -z "$CONNECTED" ]; then
-    CONNECTED="HDMI-A-1"
-fi
+CONNECTED="${CONNECTED:-"HDMI-A-1"}"
+SOCKET="${SOCKET:-"/tmp/mpvsocket"}"
+PLAYLIST="${PLAYLIST:-"/home/pi/playlist.txt"}"
 
-# echo "Using connector: $CONNECTED"
+exec mpv $PLAYLIST
+    --input-ipc-server=$SOCKET \
 
-SOCKET=/tmp/mpvsocket
+    # from mpv.conf
+    --hwdec=auto \
+    --ao=jack \
+    --fs \
+    --loop-playlist \
+    --video-output-levels=limited \
+    --audio-channels=stereo \
+    --volume=80 \
+    --playlist=$PLAYLIST
 
-mpv --terminal=no \
+    # not sure if needed
+    --terminal=no \
     --vo=drm \
     --drm-device=/dev/dri/card1 \
     --drm-connector="$CONNECTED" \
-    --input-ipc-server=$SOCKET \
-    --idle=yes
-    "$@"
+    --idle=yes \
+
+    # "$@"
+
