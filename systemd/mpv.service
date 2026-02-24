@@ -7,4 +7,4 @@ WantedBy=default.target
 [Service]
 Type=exec
 ExecStart=/usr/local/bin/start-mpv.sh
-RestartMode=always
+Restart=always

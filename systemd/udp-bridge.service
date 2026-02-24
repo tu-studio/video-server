@@ -9,13 +9,9 @@ WantedBy=default.target
 
 [Service]
 Type=simple
-Environment="UDP_BRIDGE_UDP_PORT=9000"
-Environment="UDP_BRIDGE_SOCKET_PATH=/tmp/mpvsocket"
-ExecStart=socat UDP4-RECVFROM:$UDP_BRIDGE_UDP_PORT,broadcast,fork,reuseaddr UNIX-CONNECT:UDP_BRIDGE_SOCKET_PATH
+; due to some bug, it doesn't actually fill in the env variables
+; that's why we just hardcode them for now
+; Environment=UDP_BRIDGE_UDP_PORT=9000
+; Environment=UDP_BRIDGE_SOCKET_PATH=/tmp/mpvsocket
+ExecStart=socat UDP4-RECVFROM:9000,broadcast,fork,reuseaddr UNIX-CONNECT:/tmp/mpvsocket
 RestartMode=always
-
-; Environment="UDP_BRIDGE_MPV_SOCKET=/tmp/mpvsocket"
-; Environment="UDP_BRIDGE_BLANK_PATH=media/blank.mp4"
-; Environment="UDP_BRIDGE_UDP_IP=0.0.0.0"
-; Environment="UDP_BRIDGE_UDP_PORT=9000"
-; Environment="UDP_BRIDGE_BUFFER_SIZE=4096"
