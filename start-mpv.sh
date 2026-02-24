@@ -15,8 +15,6 @@ PLAYLIST="${PLAYLIST:-"/home/pi/playlist.txt"}"
 
 exec mpv \
     --input-ipc-server=$SOCKET \
-
-    # from mpv.conf
     --hwdec=auto \
     --ao=jack \
     --fs \
@@ -25,13 +23,9 @@ exec mpv \
     --audio-channels=stereo \
     --volume=80 \
     --playlist=$PLAYLIST \
-
-    # not sure if needed
     --terminal=no \
     --vo=drm \
     --drm-device=/dev/dri/card1 \
     --drm-connector="$CONNECTED" \
     --idle=yes \
-
-    # "$@"
 
