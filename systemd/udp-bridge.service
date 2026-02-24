@@ -8,9 +8,12 @@ Requires=mpv.service
 WantedBy=default.target
 
 [Service]
-Type=exec
-ExecStart=/usr/local/bin/udp-bridge.py
+Type=simple
+Environment="UDP_BRIDGE_UDP_PORT=9000"
+Environment="UDP_BRIDGE_SOCKET_PATH=/tmp/mpvsocket"
+ExecStart=socat UDP4-RECVFROM:$UDP_BRIDGE_UDP_PORT,broadcast,fork,reuseaddr UNIX-CONNECT:UDP_BRIDGE_SOCKET_PATH
 RestartMode=always
+
 ; Environment="UDP_BRIDGE_MPV_SOCKET=/tmp/mpvsocket"
 ; Environment="UDP_BRIDGE_BLANK_PATH=media/blank.mp4"
 ; Environment="UDP_BRIDGE_UDP_IP=0.0.0.0"
