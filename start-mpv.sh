@@ -11,8 +11,7 @@ done | head -n1)
 # Fallback if nothing was found
 CONNECTED="${CONNECTED:-"HDMI-A-1"}"
 SOCKET="${SOCKET:-"/tmp/mpvsocket"}"
-PLAYLIST="${PLAYLIST:-"$HOME/playlist.txt"}"
-LOGFILE="${PLAYLIST:-"$HOME/log.txt"}"
+PLAYLIST="${PLAYLIST:-"/home/pi/playlist.txt"}"
 
 exec mpv \
     --input-ipc-server=$SOCKET \
@@ -25,8 +24,8 @@ exec mpv \
     --volume=80 \
     --playlist=$PLAYLIST \
     --terminal=no \
-    --idle=yes \
-    --log-file=$LOGFILE \
     --vo=drm \
     --drm-device=/dev/dri/card1 \
     --drm-connector="$CONNECTED" \
+    --idle=yes \
+
