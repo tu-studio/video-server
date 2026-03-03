@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-# Detect connector from /sys/class/drm/card1-* that is "connected"
+# detect connector from /sys/class/drm/card1-* that is connected
+# potentially unneeded
+# if this does not work in HUFO, could be a place to check
 CONNECTED=$(for c in /sys/class/drm/card1-*; do
     [ -f "$c/status" ] || continue
     if grep -q "connected" "$c/status"; then
@@ -8,7 +10,7 @@ CONNECTED=$(for c in /sys/class/drm/card1-*; do
     fi
 done | head -n1)
 
-# Fallback if nothing was found
+# fallback if nothing was found
 CONNECTED="${CONNECTED:-"HDMI-A-1"}"
 SOCKET="${SOCKET:-"/tmp/mpvsocket"}"
 PLAYLIST="${PLAYLIST:-"$HOME/videos/playlist.txt"}"
@@ -28,4 +30,3 @@ exec mpv \
     --drm-device=/dev/dri/card1 \
     --drm-connector="$CONNECTED" \
     --idle=yes \
-

@@ -6,5 +6,9 @@ WantedBy=default.target
 
 [Service]
 Type=exec
+; CONNECTED should probably be changed at HUFO
+Environment="CONNECTED=HDMI-A-1"
+Environment="SOCKET=/tmp/mpvsocket"
+Environment="PLAYLIST=$HOME/videos/playlist.txt"
 ExecStart=/usr/local/bin/start-mpv.sh
 Restart=always
